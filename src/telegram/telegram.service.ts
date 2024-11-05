@@ -31,7 +31,17 @@ export class TelegramService {
         this.sendStartMessage(chatId, 'Вы вернулись!');
       } else {
         // const result = userService.create({ idTelegram: chatId, username: 'Guest', avatar: 'google.com' })
-        this.sendStartMessage(chatId, 'Добро пожаловать!');
+        this.sendStartMessage(
+          chatId,
+          `Добро пожаловать в Paradox!
+
+Ты стал партнером нашего маркетингового агентства и теперь можешь строить собственный бизнес прямо здесь! Исследуй мир блогеров, собирай монеты, развивай пассивный доход и создавай стратегию, которая приведет тебя к успеху.
+
+Совсем скоро мы объявим дату листинга токена, где твой прогресс будет оценен.
+
+Не забывай приглашать друзей — вместе вы сможете зарабатывать еще больше!
+
+Начни свой путь в Paradox уже сейчас!`);
       }
 
     });
@@ -76,33 +86,35 @@ export class TelegramService {
 
   // Функция отправки сообщения с Web App кнопкой (синяя кнопка)
   sendStartMessage(chatId: string, msg = '') {
-
-    console.log('ID!: ', chatId)
+    console.log('ID!: ', chatId);
 
     const webAppUrl = `https://paradoxlive.pro`; // URL вашего Web App
+    const telegramChannelUrl = `https://t.me/your_channel`; // URL вашего Telegram-канала
 
     const options = {
       reply_markup: {
         inline_keyboard: [
           [
             {
-              text: 'Open Web App',
+              text: 'Играть',
               web_app: { url: webAppUrl }, // Web App синяя кнопка
+            },
+            {
+              text: 'Подписаться на канал',
+              url: telegramChannelUrl // Кнопка со ссылкой на ТГ-канал
             },
           ],
         ],
-        // keyboard: [
-        //   [{ text: 'Меня пригласили' }], // Two buttons side by side
-        // ],
         resize_keyboard: true, // Automatically resize the keyboard
         one_time_keyboard: true, // Keyboard disappears after one use
       },
     };
 
-    console.log('id: ', chatId)
+    console.log('id: ', chatId);
 
     !msg
       ? this.bot.sendMessage(chatId, msg, options)
-      : this.bot.sendMessage(chatId, msg, options)
-  }
+      : this.bot.sendMessage(chatId, msg, options);
+}
+
 }
